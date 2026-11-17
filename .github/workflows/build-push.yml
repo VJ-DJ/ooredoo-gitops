@@ -1,0 +1,40 @@
+
+name: Build and Push Sample App
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'sample-app/**'
+      - '.github/workflows/build-push.yml'
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./sample-app
+          push: true
+          tags: |
+            ghcr.io/vj-dj/ooredoo-sample-app:latest
+            ghcr.io/vj-dj/ooredoo-sample-app:${{ github.sha }}
