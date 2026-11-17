@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: sample-app
-          image: ghcr.io/vj-dj/ooredoo-sample-app:latest
+          image: ghcr.io/vj-dj/ooredoo-sample-app:fb6dae85e0fe5ba8e168ea42015adf69f586ca8d
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
