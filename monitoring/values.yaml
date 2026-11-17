@@ -1,11 +1,27 @@
-﻿grafana:
+﻿
+grafana:
   enabled: true
   ingress:
-    enabled: false
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - grafana.20.105.77.90.nip.io
+    path: /
+    pathType: Prefix
+    annotations:
+      nginx.ingress.kubernetes.io/ssl-redirect: "false"
 
 prometheus:
   ingress:
-    enabled: false
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - prometheus.20.105.77.90.nip.io
+    paths:
+      - /
+    pathType: Prefix
+    annotations:
+      nginx.ingress.kubernetes.io/ssl-redirect: "false"
 
 alertmanager:
   enabled: true
